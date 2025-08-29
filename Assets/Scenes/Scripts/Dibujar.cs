@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,20 +64,20 @@ public class Dibujar : MonoBehaviour
         return hit.GetComponent<Lata>() != null;
     }
 
-    bool CrearLineas(Poder poder) 
+    void CrearLineas(Poder poder) 
     {
         if (puntos.Count == 0) return;
 
         switch (poder) 
         {
             case Poder.Fuego:
-                foreach (var p in puntos) Instantiate(fuegoPrefab, p, Quaternion.Identity);
+                foreach (var p in puntos) Instantiate(fuegoPrefab, p, Quaternion.identity);
                 break;
 
             case Poder.Lluvia:
                 foreach (var p in puntos)
                 {
-                    // Spawnea gotas un poco m�s arriba para que "caigan"
+                    // Spawnea gotas un poco más arriba para que "caigan"
                     Instantiate(lluviaPrefab, p + Vector3.up * 2f, Quaternion.identity);
                 }
                 break;
