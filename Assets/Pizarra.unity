@@ -653,6 +653,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2109284271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109284273}
+  - component: {fileID: 2109284272}
+  m_Layer: 0
+  m_Name: dibujo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2109284272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109284271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e865561016e79498d154522d0470ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineaPrefab: {fileID: 47007269919749808, guid: 58eb4c9aa303e22479f28c9692558400, type: 3}
+  fuegoPrefab: {fileID: 8549948490980554676}
+  lluviaPrefab: {fileID: 0}
+  rayoPrefab: {fileID: 0}
+  distanciaMinPunto: 0.08
+  maxPuntos: 500
+--- !u!4 &2109284273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109284271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.2492576, y: 0.3514839, z: -0.022143696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3750915874943146050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -799,3 +849,4 @@ SceneRoots:
   - {fileID: 3750915874943146050}
   - {fileID: 8549948490980554675}
   - {fileID: 1206476911}
+  - {fileID: 2109284273}
