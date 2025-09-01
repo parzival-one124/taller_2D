@@ -60,12 +60,24 @@ public class Dibujar : MonoBehaviour
 
     void CrearLineas(Poder poder)
     {
+        if (puntos.Count == 0) return;
+
         switch (poder)
         {
             case Poder.Fuego:
                 foreach (var p in puntos)
                 {
                     var f = Instantiate(fuegoPrefab, p, Quaternion.identity);
+                    Collider2D hit = Physics2D.OverlapCircle(p, 0.2f);
+                    if (hit != null)
+                    {
+                        Debug.Log("Detecté: " + hit.gameObject.name + " con tag " + hit.tag);
+                        if (hit.CompareTag("Madera"))
+                        {
+                            Destroy(hit.gameObject);
+                            Debug.Log("Madera destruida");
+                        }
+                    }
                     Destroy(f, 5f);
                 }
                 break;
