@@ -20,6 +20,7 @@ public class Dibujar : MonoBehaviour
     void Update()
     {
         if (GameManager.instance == null || GameManager.instance.poderselec == Poder.Ninguno) return;
+    
 
         // Iniciar línea
         if (Input.GetMouseButtonDown(0))
@@ -27,6 +28,9 @@ public class Dibujar : MonoBehaviour
             if (ClickSobreLata()) return;
 
             var go = Instantiate(lineaPrefab);
+
+            go.tag = "fuego";
+
             lineaActual = go.GetComponent<LineRenderer>();
             puntos.Clear();
 
@@ -45,6 +49,17 @@ public class Dibujar : MonoBehaviour
                 lineaActual.positionCount = puntos.Count;
                 lineaActual.SetPositions(puntos.ToArray());
             }
+        }
+
+        // Al soltar el clic, crear efectos y destruir madera si corresponde
+        if (Input.GetMouseButtonUp(0) && lineaActual != null)
+        {
+            Debug.Log("Solté el clic — se van a procesar " + puntos.Count + " puntos. Poder: " + GameManager.instance.poderselec);
+            CrearLineas(GameManager.instance.poderselec);
+
+            Destroy(lineaActual.gameObject, 5f);
+            lineaActual = null;
+            puntos.Clear();
         }
     }
 
@@ -68,7 +83,7 @@ public class Dibujar : MonoBehaviour
                 foreach (var p in puntos)
                 {
                     var f = Instantiate(fuegoPrefab, p, Quaternion.identity);
-                    Collider2D hit = Physics2D.OverlapCircle(p, 0.2f);
+                    Collider2D hit = Physics2D.OverlapCircle(p, 0.5f);
                     if (hit != null)
                     {
                         Debug.Log("Detecté: " + hit.gameObject.name + " con tag " + hit.tag);
