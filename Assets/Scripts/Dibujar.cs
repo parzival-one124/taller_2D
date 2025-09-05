@@ -34,7 +34,7 @@ public class Dibujar : MonoBehaviour
             lineaActual = go.GetComponent<LineRenderer>();
             puntos.Clear();
 
-            Destroy(go, 5f);
+            Destroy(go, 2f);
         }
 
         // Dibujar mientras mantengo clic
@@ -57,7 +57,7 @@ public class Dibujar : MonoBehaviour
             Debug.Log("Solté el clic — se van a procesar " + puntos.Count + " puntos. Poder: " + GameManager.instance.poderselec);
             CrearLineas(GameManager.instance.poderselec);
 
-            Destroy(lineaActual.gameObject, 5f);
+            Destroy(lineaActual.gameObject, 2f);
             lineaActual = null;
             puntos.Clear();
         }
@@ -93,7 +93,7 @@ public class Dibujar : MonoBehaviour
                             Debug.Log("Madera destruida");
                         }
                     }
-                    Destroy(f, 5f);
+                    Destroy(f, 2f);
                 }
                 break;
 

@@ -1,48 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public float velocidad = 5f;
+    public float fuerzaSalto = 7f;
+    private bool enSuelo = false;
 
-    private Vector2 direccion;
     private Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Congelar rotación para que no se voltee
+        rb.freezeRotation = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-       direccion = Vector2.zero;
+        // Movimiento horizontal (A y D o flechas izquierda/derecha)
+        float move = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(move * velocidad, rb.velocity.y);
 
-        if (Input.GetKey(KeyCode.W)) 
+        // Saltar (una vez, solo si está en el suelo)
+        if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
-            direccion.y += 1f;
+            rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+            enSuelo = false;
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direccion.x -= 1f;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direccion.x += 1f;
-        }
-
     }
 
-    void FixedUpdate()
+    // Detectar si está tocando el suelo
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (direccion != Vector2.zero )
+        if (collision.gameObject.CompareTag("suelo"))
         {
-            if (rb != null)
-            {
-                rb.MovePosition(rb.position + direccion * velocidad * Time.fixedDeltaTime);
-            }
+            enSuelo = true;
         }
     }
 }
