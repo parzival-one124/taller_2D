@@ -14,5 +14,10 @@ public class Madera : MonoBehaviour
             Debug.Log("La madera se está quemando");
             Destroy(gameObject, tiempoQuemarse); // la madera desaparece después de un rato
         }
+        if (other.CompareTag("LLuvia"))
+        {
+            Debug.Log("fuego muere");
+            Destroy(gameObject, tiempoQuemarse);
+        }
     }
 }
