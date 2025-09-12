@@ -7,6 +7,9 @@ TagManager:
   - fuego
   - Madera
   - suelo
+  - lluvia
+  - LLuvia
+  - Fuego
   layers:
   - Default
   - TransparentFX

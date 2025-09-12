@@ -13,7 +13,6 @@ public class Lluvia : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        // Apaga fuego
         if (col.CompareTag("Fuego"))
         {
             Destroy(col.gameObject);

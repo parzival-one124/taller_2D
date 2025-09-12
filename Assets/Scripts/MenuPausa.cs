@@ -25,6 +25,8 @@ public class MenuPausa : MonoBehaviour
     public void Pausar()
     {
         panelPausa.SetActive(true);
+        panelOpciones.SetActive(false);
+
         Time.timeScale = 0f; // congela el juego
         juegoPausado = true;
     }
@@ -32,14 +34,16 @@ public class MenuPausa : MonoBehaviour
     public void Reanudar()
     {
         panelPausa.SetActive(false);
+        panelOpciones.SetActive(false);
+
         Time.timeScale = 1f; // reanuda el juego
         juegoPausado = false;
     }
 
     public void IrAMenuPrincipal()
     {
-        Time.timeScale = 1f; // asegúrate de reanudar antes de cambiar escena
-        SceneManager.LoadScene("Menu"); // cambia "Menu" por el nombre real de tu escena de menú
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Menu");
     }
 
     public void AbrirOpciones()
@@ -50,6 +54,13 @@ public class MenuPausa : MonoBehaviour
             panelOpciones.SetActive(true);
         }
     }
+
+    public void VolverAPausa()
+    {
+        panelOpciones.SetActive(false);
+        panelPausa.SetActive(true);
+    }
+
 
     public void SalirJuego()
     {

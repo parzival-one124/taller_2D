@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3660037292678021269}
   - component: {fileID: 263406810661959710}
   m_Layer: 0
-  m_Name: Linea
+  m_Name: LineaRoja
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

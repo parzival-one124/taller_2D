@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Dibujar : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject lineaPrefab;
+    [Header("Prefabs de Lineas")]
+    public GameObject lineaRojaPrefab;
+    public GameObject lineaAzulPrefab;
+
+    [Header("Prefabs de Poderes")]
     public GameObject fuegoPrefab;
     public GameObject lluviaPrefab;
-    public GameObject rayoPrefab;
 
     [Header("Dibujo")]
     public float distanciaMinPunto = 0.08f; // trazo mínimo
@@ -26,15 +28,25 @@ public class Dibujar : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (ClickSobreLata()) return;
+            GameObject prefabLinea = null;
 
-            var go = Instantiate(lineaPrefab);
+            switch (GameManager.instance.poderselec)
+            {
+                case Poder.Fuego:
+                    prefabLinea = lineaRojaPrefab;
+                    break;
+                
+                case Poder.Lluvia:
+                    prefabLinea = lineaAzulPrefab;
+                    break;
+            }
 
-            go.tag = "fuego";
-
-            lineaActual = go.GetComponent<LineRenderer>();
-            puntos.Clear();
-
-            Destroy(go, 2f);
+            if (prefabLinea != null)
+            {
+                var go = Instantiate(prefabLinea);
+                lineaActual = go.GetComponent<LineRenderer>();
+                puntos.Clear();
+            }
         }
 
         // Dibujar mientras mantengo clic
@@ -100,11 +112,6 @@ public class Dibujar : MonoBehaviour
             case Poder.Lluvia:
                 foreach (var p in puntos)
                     Instantiate(lluviaPrefab, p + Vector3.up * 2f, Quaternion.identity);
-                break;
-
-            case Poder.Rayo:
-                foreach (var p in puntos)
-                    Instantiate(rayoPrefab, p, Quaternion.identity);
                 break;
         }
     }
