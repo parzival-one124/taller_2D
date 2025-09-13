@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Dibujar : MonoBehaviour
 {
+    [Header("Prefabs de Efectos")]
+    public GameObject sprayPrefab;
+    private GameObject sprayActual;
+
     [Header("Prefabs de Lineas")]
     public GameObject lineaRojaPrefab;
     public GameObject lineaAzulPrefab;
@@ -19,6 +23,8 @@ public class Dibujar : MonoBehaviour
     private LineRenderer lineaActual;
     private readonly List<Vector3> puntos = new List<Vector3>();
 
+    private AudioSource sprayAudio;
+
     void Update()
     {
         if (GameManager.instance == null || GameManager.instance.poderselec == Poder.Ninguno) return;
@@ -28,6 +34,7 @@ public class Dibujar : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (ClickSobreLata()) return;
+
             GameObject prefabLinea = null;
 
             switch (GameManager.instance.poderselec)
@@ -47,6 +54,33 @@ public class Dibujar : MonoBehaviour
                 lineaActual = go.GetComponent<LineRenderer>();
                 puntos.Clear();
             }
+
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse.z = 0f;
+            sprayActual = Instantiate(sprayPrefab, mouse, Quaternion.identity);
+
+            sprayAudio = sprayActual.GetComponent<AudioSource>();
+
+            if (sprayAudio != null)
+            {
+                sprayAudio.Play(); //sonido
+            }
+
+            // Cambiar color del spray según el poder
+            var ps = sprayActual.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                var main = ps.main;
+                switch (GameManager.instance.poderselec)
+                {
+                    case Poder.Fuego:
+                        main.startColor = Color.red;
+                        break;
+                    case Poder.Lluvia:
+                        main.startColor = Color.blue;
+                        break;
+                }
+            }
         }
 
         // Dibujar mientras mantengo clic
@@ -54,6 +88,7 @@ public class Dibujar : MonoBehaviour
         {
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0f;
+            
 
             if (puntos.Count == 0 || (puntos.Count < maxPuntos && Vector3.Distance(puntos[puntos.Count - 1], mouse) > distanciaMinPunto))
             {
@@ -73,6 +108,25 @@ public class Dibujar : MonoBehaviour
             lineaActual = null;
             puntos.Clear();
         }
+
+        if (Input.GetMouseButton(0) && sprayActual != null)
+        {
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse.z = 0f;
+            sprayActual.transform.position = mouse;
+        }
+
+        if (Input.GetMouseButtonUp(0) && sprayActual != null)
+        {
+            if (sprayAudio != null)
+            {
+                sprayAudio.Stop(); //detener sonido
+            }
+
+            Destroy(sprayActual);
+            sprayActual = null;
+        }
+
     }
 
     bool ClickSobreLata()

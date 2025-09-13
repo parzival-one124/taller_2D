@@ -4,14 +4,19 @@ using UnityEngine.SceneManagement;
 public class MenuPausa : MonoBehaviour
 {
     public GameObject panelPausa;
-    public GameObject panelOpciones; // opcional si usas el mismo de tu menú principal
+    public GameObject panelOpciones;
     private bool juegoPausado = false;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (juegoPausado)
+            // Si estoy en opciones, vuelvo al panel de pausa
+            if (panelOpciones.activeSelf)
+            {
+                CerrarOpciones();
+            }
+            else if (juegoPausado)
             {
                 Reanudar();
             }
@@ -25,49 +30,32 @@ public class MenuPausa : MonoBehaviour
     public void Pausar()
     {
         panelPausa.SetActive(true);
-        panelOpciones.SetActive(false);
-
-        Time.timeScale = 0f; // congela el juego
+        Time.timeScale = 0f; // Detiene el tiempo
         juegoPausado = true;
     }
 
     public void Reanudar()
     {
         panelPausa.SetActive(false);
-        panelOpciones.SetActive(false);
-
-        Time.timeScale = 1f; // reanuda el juego
+        Time.timeScale = 1f; // Reanuda
         juegoPausado = false;
     }
 
-    public void IrAMenuPrincipal()
+    public void IrAlMenu()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
 
     public void AbrirOpciones()
     {
-        if (panelOpciones != null)
-        {
-            panelPausa.SetActive(false);
-            panelOpciones.SetActive(true);
-        }
+        panelPausa.SetActive(false);
+        panelOpciones.SetActive(true);
     }
 
-    public void VolverAPausa()
+    public void CerrarOpciones()
     {
         panelOpciones.SetActive(false);
         panelPausa.SetActive(true);
     }
-
-
-    public void SalirJuego()
-    {
-        Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }
 }
-
