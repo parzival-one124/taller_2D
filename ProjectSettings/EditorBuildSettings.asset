@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pizarra.unity
     guid: b71c445f96492544f90690329b76fe7f
+  - enabled: 1
+    path: Assets/Scenes/Pizarra 2.unity
+    guid: b621aed782903de40a301fbfcff9914e
   m_configObjects: {}
