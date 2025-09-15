@@ -11,6 +11,10 @@ public class CambioNivel : MonoBehaviour
             int escenaActual = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene("Pizarra 2");
         }
+        if (SceneManager.GetActiveScene().name == "Pizarra 2")
+        {
+            SceneManager.LoadScene("Victoria");
+        }
     }
 }
 
